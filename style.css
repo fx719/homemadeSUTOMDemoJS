@@ -42,3 +42,47 @@ main {
     text-align: center;
     box-shadow: 2px 2px 2px;
 }
+
+.keyboardLetters {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.keyboardLetters div {
+    border: 2px solid black;
+    margin: 2px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.507);
+    color: lightcyan;
+    box-shadow: 2px 2px 2px black;
+    user-select: none;
+}
+
+.keyboardLetters div:hover {
+    cursor: pointer;
+    color: green;
+}
+
+#eraseLetterButton {
+    border-radius: 10px;
+    border: 0px solid black;
+    padding: 2px 5px 2px 5px;
+    background-color: rgba(0, 0, 0, 0.486);
+    text-align: center;
+    font-size: larger;
+    box-shadow: 2px 2px 2px black;
+    color: lightcyan;
+}
+
+#enterButton {
+    border-radius: 10px;
+    border: 0px solid black;
+    padding: 2px 5px 2px 5px;
+    background-color: rgba(0, 0, 0, 0.486);
+    text-align: center;
+    font-size: larger;
+    box-shadow: 2px 2px 2px black;
+    color: lightcyan;
+
+}

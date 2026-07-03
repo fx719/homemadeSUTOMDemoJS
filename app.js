@@ -1,5 +1,7 @@
 import words from './data/words.js'
+import keyboardLetters from './data/keyboardLetters.js'
 import createBox from './functions/createBox.js'
+import generateVirtualKeyboard from './functions/generateVirtualKeyboard.js'
 
 const wordIndex = (arrayLength) => Math.floor(Math.random() * arrayLength)
 
@@ -20,3 +22,7 @@ const letterBoxesParent = document.querySelector(".letterBoxesObserver")
 
 
 createBox(wordToTest, letterBoxes, letterBox)
+
+const virtualKeyboardLetters = document.querySelector('.keyboardLetters')
+
+generateVirtualKeyboard(keyboardLetters, virtualKeyboardLetters)
