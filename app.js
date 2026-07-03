@@ -3,6 +3,10 @@ import keyboardLetters from './data/keyboardLetters.js'
 import createBox from './functions/createBox.js'
 import generateVirtualKeyboard from './functions/generateVirtualKeyboard.js'
 import appointBoxes from './functions/appointBoxes.js'
+import fillBoxes from './functions/fillBoxes.js'
+import eraseLetterBoxLetter from './functions/eraseLetter.js'
+
+
 
 const wordIndex = (arrayLength) => Math.floor(Math.random() * arrayLength)
 
@@ -39,4 +43,41 @@ let linesArray = Array.from(letterBoxesLines)
 
 linesArray.map((lineX) => {
     lineX.firstChild.innerText = wordToTest[0].toUpperCase()
+})
+
+
+// ------------------------------------------   Partie écriture réponse -----------------------------
+
+const everyKeyboardLetter = document.querySelectorAll('.keyboardLetter')
+const eraseLetterButton = document.getElementById('eraseLetterButton')
+
+for (let i = 0; i < everyKeyboardLetter.length; i++) {
+    everyKeyboardLetter[i].addEventListener('click', (e) => fillBoxes(linesArray, e.target.innerText))
+}
+
+function keydownLetterHandler(e) {
+    const expression = /[a-z]/
+    if (!expression.test(e.key) || e.key.length > 1) {
+    } else {
+        fillBoxes(linesArray, e.key)
+    }
+}
+
+document.body.addEventListener('keydown', keydownLetterHandler)
+
+eraseLetterButton.addEventListener('click', () => {
+    try {
+        eraseLetterBoxLetter(linesArray)
+    } catch (error) { }
+})
+
+document.body.addEventListener('keydown', (e) => {
+    try {
+        if (e.key === 'Backspace') {
+            e.preventDefault()
+            eraseLetterBoxLetter(linesArray)
+        }
+    } catch (error) {
+        console.error(error)
+    }
 })
