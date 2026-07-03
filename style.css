@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 1440px;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    margin-inline: 200px;
+}
+
+header {
+    height: 80px;
+}
+
+footer {
+    height: 80px;
+}
+
+main {
+    height: calc(100vh - 160px);
+}
