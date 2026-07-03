@@ -2,6 +2,7 @@ import words from './data/words.js'
 import keyboardLetters from './data/keyboardLetters.js'
 import createBox from './functions/createBox.js'
 import generateVirtualKeyboard from './functions/generateVirtualKeyboard.js'
+import appointBoxes from './functions/appointBoxes.js'
 
 const wordIndex = (arrayLength) => Math.floor(Math.random() * arrayLength)
 
@@ -26,3 +27,16 @@ createBox(wordToTest, letterBoxes, letterBox)
 const virtualKeyboardLetters = document.querySelector('.keyboardLetters')
 
 generateVirtualKeyboard(keyboardLetters, virtualKeyboardLetters)
+
+// ---------------------------------------  Partie assignation id des linees puis boxes -------------------
+
+
+const letterBoxesLines = document.querySelectorAll('.letterBoxes')
+appointBoxes(letterBoxesLines)
+
+let linesArray = Array.from(letterBoxesLines)
+
+
+linesArray.map((lineX) => {
+    lineX.firstChild.innerText = wordToTest[0].toUpperCase()
+})

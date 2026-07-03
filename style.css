@@ -11,6 +11,7 @@ body {
     justify-content: center;
     align-items: center;
     margin-inline: 200px;
+    background: oklch(0.6691 0.073 319.94);
 }
 
 header {
@@ -19,6 +20,12 @@ header {
 
 footer {
     height: 80px;
+}
+
+footer a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
 }
 
 main {
