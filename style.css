@@ -24,3 +24,21 @@ footer {
 main {
     height: calc(100vh - 160px);
 }
+
+.letterBoxes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 2px;
+}
+
+.letterBox {
+    border: 1.8px solid black;
+    height: 20px;
+    width: 20px;
+    font-size: larger;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 2px 2px 2px;
+}

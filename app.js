@@ -1,3 +1,22 @@
-const h1 = document.querySelector("h1")
+import words from './data/words.js'
+import createBox from './functions/createBox.js'
 
-h1.addEventListener("click", () => console.log("titre"))
+const wordIndex = (arrayLength) => Math.floor(Math.random() * arrayLength)
+
+
+
+const mainContent = document.querySelector('main')
+
+const letterBoxes = document.querySelector(".letterBoxes")
+
+const letterBox = document.createElement("div")
+letterBox.innerText = "."
+letterBox.classList.add("letterBox")
+
+let wordToTest = words[wordIndex(words.length)]
+
+
+const letterBoxesParent = document.querySelector(".letterBoxesObserver")
+
+
+createBox(wordToTest, letterBoxes, letterBox)
