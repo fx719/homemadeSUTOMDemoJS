@@ -50,6 +50,10 @@ main {
     box-shadow: 2px 2px 2px;
 }
 
+.virtualKeyboard {
+    margin-top: 1rem;
+}
+
 .keyboardLetters {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -92,4 +96,20 @@ main {
     box-shadow: 2px 2px 2px black;
     color: lightcyan;
 
+}
+
+.flashMessage {
+    background-color: rgba(255, 0, 0, 0.541);
+    color: lightcyan;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 10px;
+}
+
+.flashGoodMessage {
+    background-color: rgb(57, 228, 57);
+    color: lightcyan;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 10px;
 }

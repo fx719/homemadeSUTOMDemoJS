@@ -5,6 +5,8 @@ import generateVirtualKeyboard from './functions/generateVirtualKeyboard.js'
 import appointBoxes from './functions/appointBoxes.js'
 import fillBoxes from './functions/fillBoxes.js'
 import eraseLetterBoxLetter from './functions/eraseLetter.js'
+import flashMessage from './functions/flashMessage.js'
+import flashMessagesLibrary from './data/flashMessages.js'
 
 
 
@@ -81,3 +83,6 @@ document.body.addEventListener('keydown', (e) => {
         console.error(error)
     }
 })
+
+flashMessage(mainContent, flashMessagesLibrary.victoryMessage, true, 3000)
+
