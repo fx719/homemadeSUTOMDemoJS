@@ -33,12 +33,12 @@ export const decrementTimer = (startTimerButton, minutesDisplayed, secondsDispla
             startTimerButton.remove()
             secondsDisplayed.innerHTML--
             if (minutesDisplayed.innerHTML < 0 || secondsDisplayed.innerHTML < 0 || minutesDisplayed.innerHTML > 10) {
-                clearInterval(3)
+                clearInterval(timerDecrement)
                 stopGame(virtualKeyboardEnterButton, virtualKeyboardEraseButton, virtualKeyboardDiv, clock, enterKeyPressedHandler, physicalKeyLetterHandler, contentContainer)
             }
             if (secondsDisplayed.innerHTML < 1) {
                 if (minutesDisplayed.innerHTML < 1) {
-                    clearInterval(3)
+                    clearInterval(timerDecrement)
                     stopGame(virtualKeyboardEnterButton, virtualKeyboardEraseButton, virtualKeyboardDiv, clock, enterKeyPressedHandler, physicalKeyLetterHandler, contentContainer)
                 }
                 secondsDisplayed.innerHTML = 59
