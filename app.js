@@ -157,3 +157,71 @@ const submitWordWithEnterKey = (triggeredEvent) => {
 }
 
 document.body.addEventListener('keydown', submitWordWithEnterKey)
+
+
+/**
+ * Handles word submission when the "Enter" button is clicked.
+ *
+ * This asynchronous event listener performs the following steps:
+ * - Iterates over each line in `linesArray` to find the active, writable line.
+ * - Retrieves the user's proposed word by removing newline characters.
+ * - Checks if the line is incomplete (last box is "."); if so, displays a "too short" flash message.
+ * - Checks if the proposed word exists in the dictionary (`words`); if not, displays a "not in dictionary" message.
+ * - If the line is complete and the word is valid:
+ *   - Colors the boxes according to correctness using `colorBoxes`.
+ *   - If the proposed word matches the target word (`wordToTest`):
+ *     - Displays a points gain flash message.
+ *     - Removes all lines after a short delay.
+ *     - Chooses a new target word from the `words` array.
+ *   - Otherwise, displays a fail message.
+ *
+ * @event click
+ * @listens HTMLButtonElement#click
+ * @returns {void} Modifies the DOM directly by coloring boxes, removing lines, and showing flash messages; does not return a value.
+ */
+
+enterButton.addEventListener('click', async () => {
+    for (let i = 0; i < linesArray.length; i++) {
+
+        let proposedWord = linesArray[i].innerText.replaceAll('\n', '')
+        const wordIsInDictionnary = words.includes(proposedWord.toUpperCase())
+
+        console.log(`proposedWord: ${proposedWord}`)
+        if (!linesArray[i].attributes.disabled && linesArray[i].lastChild.innerText === '.') {
+            flashMessage(mainContent, flashMessagesLibrary.tooShort, false, 2000)
+
+            break
+        }
+
+        if (!wordIsInDictionnary && linesArray[i].lastChild.innerText !== '.') {
+            flashMessage(mainContent, flashMessagesLibrary.wordIsNotInDictionnary, false, 2000)
+            break
+        } else {
+
+
+            if (!linesArray[i].attributes.disabled && linesArray[i].lastChild.innerText !== '.') {
+                colorBoxes(wordToTest, linesArray[i])
+
+                if (proposedWord === wordToTest.toUpperCase()) {
+
+
+                    flashMessage(mainContent, flashMessagesLibrary.victoryMessage, true, 3000)
+
+                    setTimeout(() => {
+                        linesArray.map((linesX) => {
+                            linesX.remove()
+                        })
+                    }, 2000)
+
+
+                    wordToTest = words[wordIndex(words.length)]
+
+                } else {
+
+                    flashMessage(mainContent, flashMessagesLibrary.failMessage, false, 3000)
+                }
+                break
+            }
+        }
+    }
+})
