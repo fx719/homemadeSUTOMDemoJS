@@ -87,56 +87,23 @@ document.body.addEventListener('keydown', (e) => {
 //      -------- Partie soumission réponse -------------------------
 const enterButton = document.getElementById('enterButton')
 
-/**
- * Handles word submission when the "Enter" key is pressed.
- *
- * This function listens for the Enter key and, when triggered, validates the user's input:
- * - Iterates over each line in `linesArray` to find the active, writable line.
- * - Checks if the line is complete; if not, displays a "too short" flash message.
- * - Checks if the proposed word exists in the dictionary (`words`); if not, displays a "not in dictionary" message.
- * - If the word is complete and valid, colors the boxes using `colorBoxes`.
- * - If the proposed word matches the target word (`wordToTest`), it displays a points gain message, removes all lines after a short delay, and selects a new target word.
- * - Otherwise, it displays a fail message.
- *
- * @function submitWordWithEnterKey
- * @param {KeyboardEvent} triggeredEvent - The keydown event triggered by the user pressing a key.
- * @returns {void} Modifies the DOM directly by updating letters' colors, removing lines, and showing flash messages; does not return a value.
- */
+
 
 const submitWordWithEnterKey = (triggeredEvent) => {
     if (triggeredEvent.key === 'Enter') {
         triggeredEvent.preventDefault()
 
-        submitAnswer(words, linesArray, mainContent, wordToTest, wordIndex)
+        submitAnswer(words, linesArray, mainContent, wordToTest)
     }
 }
 
 document.body.addEventListener('keydown', submitWordWithEnterKey)
 
 
-/**
- * Handles word submission when the "Enter" button is clicked.
- *
- * This asynchronous event listener performs the following steps:
- * - Iterates over each line in `linesArray` to find the active, writable line.
- * - Retrieves the user's proposed word by removing newline characters.
- * - Checks if the line is incomplete (last box is "."); if so, displays a "too short" flash message.
- * - Checks if the proposed word exists in the dictionary (`words`); if not, displays a "not in dictionary" message.
- * - If the line is complete and the word is valid:
- *   - Colors the boxes according to correctness using `colorBoxes`.
- *   - If the proposed word matches the target word (`wordToTest`):
- *     - Displays a points gain flash message.
- *     - Removes all lines after a short delay.
- *     - Chooses a new target word from the `words` array.
- *   - Otherwise, displays a fail message.
- *
- * @event click
- * @listens HTMLButtonElement#click
- * @returns {void} Modifies the DOM directly by coloring boxes, removing lines, and showing flash messages; does not return a value.
- */
+
 
 enterButton.addEventListener('click', async () => {
-    submitAnswer(words, linesArray, mainContent, wordToTest, wordIndex)
+    submitAnswer(words, linesArray, mainContent, wordToTest)
 })
 
 

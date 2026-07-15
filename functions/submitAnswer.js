@@ -2,7 +2,24 @@ import flashMessagesLibrary from "../data/flashMessages.js"
 import { colorBoxes } from "./colorBoxes.js"
 import flashMessage from "./flashMessage.js"
 
-export const submitAnswer = (wordsArray, wordLines, mainPageSection, wordToGuess, findNewWord) => {
+
+/**
+ * Handles word submission when the "Enter" key is pressed or clicked (on the virtual Keyboard).
+ *
+ * This function listens for the Enter key and, when triggered, validates the user's input:
+ * - Iterates over each line in wordLines Array to find the active, writable line.
+ * - Checks if the line is complete; if not, displays a "too short" flash message.
+ * - Checks if the proposed word exists in the dictionary (wordsArray); if not, displays a "not in dictionary" message.
+ * - If the word is complete and valid, colors the boxes using `colorBoxes`.
+ * - If the proposed word matches the target word (wordToGuess), it displays a points gain message, removes all lines after a short delay.
+ * - Otherwise, it displays a fail message.
+ * @param {Array} wordsArray 
+ * @param {Array} wordLines 
+ * @param {HTMLElement} mainPageSection 
+ * @param {string} wordToGuess 
+ */
+
+export const submitAnswer = (wordsArray, wordLines, mainPageSection, wordToGuess) => {
     for (let i = 0; i < wordLines.length; i++) {
 
         let proposedWord = wordLines[i].innerText.replaceAll('\n', '')
@@ -35,8 +52,6 @@ export const submitAnswer = (wordsArray, wordLines, mainPageSection, wordToGuess
                         })
                     }, 2000)
 
-
-                    //wordToGuess = wordsArray[findNewWord(wordsArray.length)]
 
                 } else {
 
