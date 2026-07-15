@@ -25,7 +25,7 @@ export const submitAnswer = (wordsArray, wordLines, mainPageSection, wordToGuess
         let proposedWord = wordLines[i].innerText.replaceAll('\n', '')
         const wordIsInDictionnary = wordsArray.includes(proposedWord.toUpperCase())
 
-        console.log(`proposedWord: ${proposedWord}`)
+
         if (!wordLines[i].attributes.disabled && wordLines[i].lastChild.innerText === '.') {
             flashMessage(mainPageSection, flashMessagesLibrary.tooShort, false, 2000)
 
