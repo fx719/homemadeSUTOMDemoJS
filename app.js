@@ -6,8 +6,7 @@ import appointBoxes from './functions/appointBoxes.js'
 import fillBoxes from './functions/fillBoxes.js'
 import eraseLetterBoxLetter from './functions/eraseLetter.js'
 import { submitAnswer } from './functions/submitAnswer.js'
-import flashMessage from './functions/flashMessage.js'
-import flashMessagesLibrary from "../data/flashMessages.js"
+import { decrementTimer } from './functions/timer.js'
 
 
 const wordIndex = (arrayLength) => Math.floor(Math.random() * arrayLength)
@@ -85,104 +84,7 @@ document.body.addEventListener('keydown', (e) => {
 })
 
 
-//  ------------ Partie déclenchement timer ----------------------------------
 
-const timerNumbers = document.querySelector(".timerNumbers")
-const minutesNumber = document.createElement("p")
-const secondsNumber = document.createElement("p")
-const timeColon = document.createElement("p")
-const decrementButton = document.getElementById("decrementButton")
-
-const boxesToDisable = document.querySelectorAll(".letterBoxes")
-for (let box of boxesToDisable) {
-    box.setAttribute("disabled", true)
-}
-
-timeColon.innerHTML = ":"
-minutesNumber.innerHTML = 5
-secondsNumber.innerHTML = "00"
-
-timerNumbers.appendChild(minutesNumber)
-timerNumbers.appendChild(timeColon)
-timerNumbers.appendChild(secondsNumber)
-
-
-
-
-/**
- * Initializes a countdown timer when the decrement button is clicked.
- *
- * - Resets the timer display to 9 minutes and 59 seconds.
- * - Enables previously disabled boxes.
- * - Starts a countdown that decrements seconds every second.
- * - Removes the decrement button once the timer starts.
- * - When time runs out or invalid values are detected, it clears the timer,
- *   removes interactive elements (buttons, keyboard, timer UI),
- *   detaches keydown event handlers, and flashes a "time's up" message.
- *
- * @event click
- * @listens HTMLButtonElement#click
- * @returns {void} Modifies the DOM and game state directly, does not return a value.
- */
-
-
-/**
- * Starts a countdown timer that updates every second.
- *
- * This interval decreases the displayed seconds and manages the rollover of minutes.
- * When the timer reaches 0 or invalid values are detected, it stops the timer,
- * removes game controls, detaches keyboard event listeners, and shows a "time's up" message.
- * @function createClickWordSubmissionHandler
- * @constant
- * @type {number} Returns the interval ID which can be used with clearInterval().
- */
-decrementButton.addEventListener("click", () => {
-    minutesNumber.innerHTML = 4
-    secondsNumber.innerHTML = 59
-
-
-
-    for (let box of boxesToDisable) {
-        box.removeAttribute("disabled")
-    }
-    const timerDecrement = setInterval(() => {
-
-        decrementButton.remove()
-
-        secondsNumber.innerHTML--
-        if (minutesNumber.innerHTML < 0 || secondsNumber.innerHTML < 0 || minutesNumber.innerHTML > 10) {
-            clearInterval(3)
-            enterButton.remove()
-            eraseLetterButton.remove()
-            virtualKeyboard.remove()
-            timerNumbers.remove()
-            document.body.removeEventListener('keydown', submitWordWithEnterKey)
-            document.body.removeEventListener('keydown', keydownLetterHandler)
-            flashMessage(mainContent, flashMessagesLibrary.timeIsUp, false, 5000)
-        }
-        if (secondsNumber.innerHTML < 1) {
-            if (minutesNumber.innerHTML < 1) {
-                clearInterval(3)
-                enterButton.remove()
-                eraseLetterButton.remove()
-                virtualKeyboard.remove()
-                timerNumbers.remove()
-                document.body.removeEventListener('keydown', submitWordWithEnterKey)
-                document.body.removeEventListener('keydown', keydownLetterHandler)
-                flashMessage(mainContent, flashMessagesLibrary.timeIsUp, false, 5000)
-            }
-            secondsNumber.innerHTML = 59
-            minutesNumber.innerHTML--
-        }
-
-
-    }, 1000)
-
-
-},
-    { once: true }
-
-)
 
 
 //      -------- Partie soumission réponse -------------------------
@@ -207,6 +109,31 @@ enterButton.addEventListener('click', async () => {
     submitAnswer(words, linesArray, mainContent, wordToTest)
 })
 
+//  ------------ Partie déclenchement timer ----------------------------------
+
+const timerNumbers = document.querySelector(".timerNumbers")
+const minutesNumber = document.createElement("p")
+const secondsNumber = document.createElement("p")
+const timeColon = document.createElement("p")
+const decrementButton = document.getElementById("decrementButton")
+
+const boxesToDisable = document.querySelectorAll(".letterBoxes")
+for (let box of boxesToDisable) {
+    box.setAttribute("disabled", true)
+}
+
+timeColon.innerHTML = ":"
+minutesNumber.innerHTML = 5
+secondsNumber.innerHTML = "00"
+
+timerNumbers.appendChild(minutesNumber)
+timerNumbers.appendChild(timeColon)
+timerNumbers.appendChild(secondsNumber)
+
+
+
+
+decrementTimer(decrementButton, minutesNumber, secondsNumber, boxesToDisable, enterButton, eraseLetterButton, virtualKeyboard, timerNumbers, submitWordWithEnterKey, keydownLetterHandler, mainContent)
 
 
 //boxesRecreation
