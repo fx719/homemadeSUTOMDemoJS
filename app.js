@@ -5,9 +5,7 @@ import generateVirtualKeyboard from './functions/generateVirtualKeyboard.js'
 import appointBoxes from './functions/appointBoxes.js'
 import fillBoxes from './functions/fillBoxes.js'
 import eraseLetterBoxLetter from './functions/eraseLetter.js'
-import flashMessage from './functions/flashMessage.js'
-import flashMessagesLibrary from './data/flashMessages.js'
-import { colorBoxes } from './functions/colorBoxes.js'
+import { submitAnswer } from './functions/submitAnswer.js'
 
 
 
@@ -85,7 +83,7 @@ document.body.addEventListener('keydown', (e) => {
     }
 })
 
-//flashMessage(mainContent, flashMessagesLibrary.victoryMessage, true, 3000)
+
 
 //      -------- Partie soumission réponse -------------------------
 const enterButton = document.getElementById('enterButton')
@@ -110,49 +108,7 @@ const submitWordWithEnterKey = (triggeredEvent) => {
     if (triggeredEvent.key === 'Enter') {
         triggeredEvent.preventDefault()
 
-        for (let i = 0; i < linesArray.length; i++) {
-
-            let proposedWord = linesArray[i].innerText.replaceAll('\n', '')
-            const wordIsInDictionnary = words.includes(proposedWord.toUpperCase())
-
-            console.log(`proposedWord: ${proposedWord}`)
-            if (!linesArray[i].attributes.disabled && linesArray[i].lastChild.innerText === '.') {
-                flashMessage(mainContent, flashMessagesLibrary.tooShort, false, 2000)
-
-                break
-            }
-
-            if (!wordIsInDictionnary && linesArray[i].lastChild.innerText !== '.') {
-                flashMessage(mainContent, flashMessagesLibrary.wordIsNotInDictionnary, false, 2000)
-                break
-            } else {
-
-
-                if (!linesArray[i].attributes.disabled && linesArray[i].lastChild.innerText !== '.') {
-                    colorBoxes(wordToTest, linesArray[i])
-
-                    if (proposedWord === wordToTest.toUpperCase()) {
-
-
-                        flashMessage(mainContent, flashMessagesLibrary.victoryMessage, true, 3000)
-
-                        setTimeout(() => {
-                            linesArray.map((linesX) => {
-                                linesX.remove()
-                            })
-                        }, 2000)
-
-
-                        wordToTest = words[wordIndex(words.length)]
-
-                    } else {
-
-                        flashMessage(mainContent, flashMessagesLibrary.failMessage, false, 3000)
-                    }
-                    break
-                }
-            }
-        }
+        submitAnswer(words, linesArray, mainContent, wordToTest, wordIndex)
     }
 }
 
@@ -181,47 +137,5 @@ document.body.addEventListener('keydown', submitWordWithEnterKey)
  */
 
 enterButton.addEventListener('click', async () => {
-    for (let i = 0; i < linesArray.length; i++) {
-
-        let proposedWord = linesArray[i].innerText.replaceAll('\n', '')
-        const wordIsInDictionnary = words.includes(proposedWord.toUpperCase())
-
-        console.log(`proposedWord: ${proposedWord}`)
-        if (!linesArray[i].attributes.disabled && linesArray[i].lastChild.innerText === '.') {
-            flashMessage(mainContent, flashMessagesLibrary.tooShort, false, 2000)
-
-            break
-        }
-
-        if (!wordIsInDictionnary && linesArray[i].lastChild.innerText !== '.') {
-            flashMessage(mainContent, flashMessagesLibrary.wordIsNotInDictionnary, false, 2000)
-            break
-        } else {
-
-
-            if (!linesArray[i].attributes.disabled && linesArray[i].lastChild.innerText !== '.') {
-                colorBoxes(wordToTest, linesArray[i])
-
-                if (proposedWord === wordToTest.toUpperCase()) {
-
-
-                    flashMessage(mainContent, flashMessagesLibrary.victoryMessage, true, 3000)
-
-                    setTimeout(() => {
-                        linesArray.map((linesX) => {
-                            linesX.remove()
-                        })
-                    }, 2000)
-
-
-                    wordToTest = words[wordIndex(words.length)]
-
-                } else {
-
-                    flashMessage(mainContent, flashMessagesLibrary.failMessage, false, 3000)
-                }
-                break
-            }
-        }
-    }
+    submitAnswer(words, linesArray, mainContent, wordToTest, wordIndex)
 })
