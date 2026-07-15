@@ -7,6 +7,7 @@ import fillBoxes from './functions/fillBoxes.js'
 import eraseLetterBoxLetter from './functions/eraseLetter.js'
 import flashMessage from './functions/flashMessage.js'
 import flashMessagesLibrary from './data/flashMessages.js'
+import { colorBoxes } from './functions/colorBoxes.js'
 
 
 
@@ -84,5 +85,75 @@ document.body.addEventListener('keydown', (e) => {
     }
 })
 
-flashMessage(mainContent, flashMessagesLibrary.victoryMessage, true, 3000)
+//flashMessage(mainContent, flashMessagesLibrary.victoryMessage, true, 3000)
 
+//      -------- Partie soumission réponse -------------------------
+const enterButton = document.getElementById('enterButton')
+
+/**
+ * Handles word submission when the "Enter" key is pressed.
+ *
+ * This function listens for the Enter key and, when triggered, validates the user's input:
+ * - Iterates over each line in `linesArray` to find the active, writable line.
+ * - Checks if the line is complete; if not, displays a "too short" flash message.
+ * - Checks if the proposed word exists in the dictionary (`words`); if not, displays a "not in dictionary" message.
+ * - If the word is complete and valid, colors the boxes using `colorBoxes`.
+ * - If the proposed word matches the target word (`wordToTest`), it displays a points gain message, removes all lines after a short delay, and selects a new target word.
+ * - Otherwise, it displays a fail message.
+ *
+ * @function submitWordWithEnterKey
+ * @param {KeyboardEvent} triggeredEvent - The keydown event triggered by the user pressing a key.
+ * @returns {void} Modifies the DOM directly by updating letters' colors, removing lines, and showing flash messages; does not return a value.
+ */
+
+const submitWordWithEnterKey = (triggeredEvent) => {
+    if (triggeredEvent.key === 'Enter') {
+        triggeredEvent.preventDefault()
+
+        for (let i = 0; i < linesArray.length; i++) {
+
+            let proposedWord = linesArray[i].innerText.replaceAll('\n', '')
+            const wordIsInDictionnary = words.includes(proposedWord.toUpperCase())
+
+            console.log(`proposedWord: ${proposedWord}`)
+            if (!linesArray[i].attributes.disabled && linesArray[i].lastChild.innerText === '.') {
+                flashMessage(mainContent, flashMessagesLibrary.tooShort, false, 2000)
+
+                break
+            }
+
+            if (!wordIsInDictionnary && linesArray[i].lastChild.innerText !== '.') {
+                flashMessage(mainContent, flashMessagesLibrary.wordIsNotInDictionnary, false, 2000)
+                break
+            } else {
+
+
+                if (!linesArray[i].attributes.disabled && linesArray[i].lastChild.innerText !== '.') {
+                    colorBoxes(wordToTest, linesArray[i])
+
+                    if (proposedWord === wordToTest.toUpperCase()) {
+
+
+                        flashMessage(mainContent, flashMessagesLibrary.victoryMessage, true, 3000)
+
+                        setTimeout(() => {
+                            linesArray.map((linesX) => {
+                                linesX.remove()
+                            })
+                        }, 2000)
+
+
+                        wordToTest = words[wordIndex(words.length)]
+
+                    } else {
+
+                        flashMessage(mainContent, flashMessagesLibrary.failMessage, false, 3000)
+                    }
+                    break
+                }
+            }
+        }
+    }
+}
+
+document.body.addEventListener('keydown', submitWordWithEnterKey)
