@@ -23,7 +23,6 @@ letterBox.classList.add("letterBox")
 
 let wordToTest = words[wordIndex(words.length)]
 
-
 const letterBoxesParent = document.querySelector(".letterBoxesObserver")
 
 
@@ -139,3 +138,47 @@ document.body.addEventListener('keydown', submitWordWithEnterKey)
 enterButton.addEventListener('click', async () => {
     submitAnswer(words, linesArray, mainContent, wordToTest, wordIndex)
 })
+
+
+
+//boxesRecreation
+
+
+const optionsBoxesObserver = { childList: true, CharacterData: false }
+
+const recreateBoxes = async (mutationList, observer) => {
+    for (const mutation of mutationList) {
+        if (mutation.type === "childList") {
+            if (mutation.removedNodes.length > 0) {
+                wordToTest = words[wordIndex(words.length)]
+                const newLetterBoxes = document.createElement("div")
+                newLetterBoxes.classList.add("letterBoxes")
+                letterBoxesParent.appendChild(newLetterBoxes)
+                const newLetterBox = document.createElement("div")
+                newLetterBox.innerText = "."
+                newLetterBox.classList.add("letterBox")
+
+                //addPointsLocal()
+
+
+                createBox(wordToTest, newLetterBoxes, newLetterBox)
+                const newlines = document.querySelectorAll('.letterBoxes')
+                appointBoxes(newlines)
+
+
+                linesArray = Array.from(newlines)
+                linesArray.map((newlineX) => {
+                    newlineX.firstChild.innerText = wordToTest[0].toUpperCase()
+                })
+
+                break
+            }
+        }
+
+    }
+}
+
+const boxesObserver = new MutationObserver(recreateBoxes)
+
+
+boxesObserver.observe(letterBoxesParent, optionsBoxesObserver)

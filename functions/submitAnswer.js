@@ -36,7 +36,7 @@ export const submitAnswer = (wordsArray, wordLines, mainPageSection, wordToGuess
                     }, 2000)
 
 
-                    wordToGuess = wordsArray[findNewWord(wordsArray.length)]
+                    //wordToGuess = wordsArray[findNewWord(wordsArray.length)]
 
                 } else {
 
