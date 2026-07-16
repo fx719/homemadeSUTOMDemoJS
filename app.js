@@ -9,7 +9,25 @@ import { submitAnswer } from './functions/submitAnswer.js'
 import { decrementTimer } from './functions/timer.js'
 
 
+
+// Points zone filler
+let playerPointsNumber = 0
+localStorage.setItem("player_points", playerPointsNumber)
+const demoPlayerPointsZone = document.querySelector(".demo_player_points_zone")
+
+let playerPointsStorage = localStorage.getItem("player_points")
+const pointsDiv = document.createElement("div")
+pointsDiv.innerHTML = `Votre nombre de points actuel : ${playerPointsStorage}`
+pointsDiv.classList.add("player_points")
+demoPlayerPointsZone.appendChild(pointsDiv)
+
+
+
+//Word boxes' generation
+
 const wordIndex = (arrayLength) => Math.floor(Math.random() * arrayLength)
+
+
 
 
 
@@ -138,7 +156,7 @@ decrementTimer(decrementButton, minutesNumber, secondsNumber, boxesToDisable, en
 
 //boxesRecreation
 
-
+console.log(wordToTest)
 const optionsBoxesObserver = { childList: true, CharacterData: false }
 
 const recreateBoxes = async (mutationList, observer) => {
@@ -146,6 +164,7 @@ const recreateBoxes = async (mutationList, observer) => {
         if (mutation.type === "childList") {
             if (mutation.removedNodes.length > 0) {
                 wordToTest = words[wordIndex(words.length)]
+                console.log(wordToTest)
                 const newLetterBoxes = document.createElement("div")
                 newLetterBoxes.classList.add("letterBoxes")
                 letterBoxesParent.appendChild(newLetterBoxes)
@@ -153,8 +172,11 @@ const recreateBoxes = async (mutationList, observer) => {
                 newLetterBox.innerText = "."
                 newLetterBox.classList.add("letterBox")
 
-                //addPointsLocal()
 
+                playerPointsNumber += 10
+                localStorage.setItem("player_points", playerPointsNumber)
+                playerPointsStorage = localStorage.getItem("player_points")
+                pointsDiv.innerHTML = `Votre nombre de points actuel : ${playerPointsStorage}`
 
                 createBox(wordToTest, newLetterBoxes, newLetterBox)
                 const newlines = document.querySelectorAll('.letterBoxes')
@@ -177,3 +199,6 @@ const boxesObserver = new MutationObserver(recreateBoxes)
 
 
 boxesObserver.observe(letterBoxesParent, optionsBoxesObserver)
+
+
+

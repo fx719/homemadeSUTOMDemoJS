@@ -7,7 +7,7 @@ const flashMessagesLibrary = {
     failMessage: "<p>Malheureusement, vous n'avez pas trouvé le bon mot ...</p>",
     timeIsUp: "<p>Temps écoulé, la partie est terminée</p>",
     pointsGainMessage: "<p> Mot deviné : +10points !</p>",
-    victoryMessage: "<p>Victoire, vous avez trouvé le bon mot !</p>"
+    victoryMessage: "<p>Victoire, vous avez trouvé le bon mot ! + 10 points !</p>"
 }
 
 
