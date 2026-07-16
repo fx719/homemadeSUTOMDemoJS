@@ -156,7 +156,7 @@ decrementTimer(decrementButton, minutesNumber, secondsNumber, boxesToDisable, en
 
 //boxesRecreation
 
-console.log(wordToTest)
+
 const optionsBoxesObserver = { childList: true, CharacterData: false }
 
 const recreateBoxes = async (mutationList, observer) => {
@@ -164,7 +164,6 @@ const recreateBoxes = async (mutationList, observer) => {
         if (mutation.type === "childList") {
             if (mutation.removedNodes.length > 0) {
                 wordToTest = words[wordIndex(words.length)]
-                console.log(wordToTest)
                 const newLetterBoxes = document.createElement("div")
                 newLetterBoxes.classList.add("letterBoxes")
                 letterBoxesParent.appendChild(newLetterBoxes)

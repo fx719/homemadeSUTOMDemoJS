@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 
 body {
@@ -134,4 +135,25 @@ main {
     color: rgb(174, 197, 197);
     box-shadow: 2px 2px 2px black;
 
+}
+
+#decrementButton {
+    font-size: medium;
+    background-color: rgba(0, 0, 255, 0.37);
+    border-radius: 20px;
+    padding: 5px 10px 5px 10px;
+    box-shadow: 2px 2px 2px black;
+    margin: 5px 0px 5px 0px;
+    color: lightcyan;
+}
+
+
+.demo_player_points_zone {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    text-align: center;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: oklch(0.5237 0.2738 281.65 / 88.05%);
+    color: lightcyan;
 }
