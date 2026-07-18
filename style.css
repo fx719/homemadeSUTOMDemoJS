@@ -17,20 +17,20 @@ body {
 
 header {
     height: 80px;
+
+    & a {
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+    }
 }
 
-footer {
-    height: 80px;
-}
 
-footer a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-}
+
+
 
 main {
-    height: calc(100vh - 160px);
+    height: calc(100vh - 80px);
     display: flex;
     flex-direction: column;
     width: 100%;
