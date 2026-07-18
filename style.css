@@ -242,8 +242,11 @@ main {
     .timerNumbers {
         width: 60%;
     }
+}
 
-    footer {
-        height: 40px;
+@media(max-width:430px) {
+    .letterBox {
+        height: 30px;
+        width: 30px;
     }
 }
